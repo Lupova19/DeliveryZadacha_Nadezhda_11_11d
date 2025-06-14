@@ -9,46 +9,46 @@ namespace DeliveryZadacha.Controllers
 {
     public class DishTypeLogic
     {
-        private DeliveryContext _deliveryContext = new DeliveryContext();
-
+        private DeliveryContext _context = new DeliveryContext();
         public List<DishType> GetAllDishTypes()
         {
-            return _deliveryContext.DishTypes.ToList();
+            return _context.DishTypes.ToList();
         }
 
+        public DishType GetDishTypeById(int id)
+        {
+            return _context.DishTypes.Find(id);
+        }
         public string GetDishTypeNameById(int id)
         {
-            var dishType = _deliveryContext.DishTypes
-                                 .Where(dt => dt.Id == id)
-                                 .Select(dt => dt.TypeName)
-                                 .FirstOrDefault();
-            return dishType; 
+            return _context.DishTypes
+                           .Where(dt => dt.Id == id)
+                           .Select(dt => dt.TypeName)
+                           .FirstOrDefault();
         }
-
         public void Create(DishType dishType)
         {
-            _deliveryContext.DishTypes.Add(dishType);
-            _deliveryContext.SaveChanges();
+            _context.DishTypes.Add(dishType);
+            _context.SaveChanges();
         }
 
         public void Update(int id, DishType dishType)
         {
-            var foundDishType = _deliveryContext.DishTypes.Find(id);
-            if (foundDishType == null)
-                return;
+            var found = _context.DishTypes.Find(id);
+            if (found == null) return;
 
-            foundDishType.TypeName = dishType.TypeName;
-            _deliveryContext.SaveChanges();
+            found.TypeName = dishType.TypeName;
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var foundDishType = _deliveryContext.DishTypes.Find(id);
-            if (foundDishType != null)
-            {
-                _deliveryContext.DishTypes.Remove(foundDishType);
-                _deliveryContext.SaveChanges();
-            }
+            var found = _context.DishTypes.Find(id);
+            if (found == null) return;
+
+            _context.DishTypes.Remove(found);
+            _context.SaveChanges();
         }
     }
 }
+

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,10 @@ namespace DeliveryZadacha
         {
             txtId.BackColor = Color.White;
             txtId.Text = dish.Id.ToString();
-            txtNameDish.Text = dish.Name;    //
+            txtNameDish.Text = dish.Name;    
             rtxDescription.Text = dish.Description;
-            numericUpDownPrice.Value = dish.Price;
-            numericUpDownWeight.Value = dish.Weight;
+            txtPrice.Text = dish.Price.ToString("0.00");
+            txtWeight.Text = dish.Weight.ToString();
             cmbKindDish.SelectedValue = dish.DishTypeId;
         }
         private void ClearScreen()
@@ -36,8 +37,8 @@ namespace DeliveryZadacha
             txtId.Clear();
             txtNameDish.Clear();
             rtxDescription.Clear();
-            numericUpDownPrice.Value = numericUpDownPrice.Minimum; //
-            numericUpDownWeight.Value = numericUpDownWeight.Minimum;
+            txtPrice.Clear();
+            txtWeight.Clear();
             cmbKindDish.SelectedIndex = -1;
         }
 
@@ -48,7 +49,6 @@ namespace DeliveryZadacha
             cmbKindDish.DisplayMember = "Name";
             cmbKindDish.ValueMember = "Id";
 
-            //btnSelectAll(sender, e);
             btnSelectAll_Click(this, EventArgs.Empty);
         }
 
@@ -56,8 +56,20 @@ namespace DeliveryZadacha
         {
             if (string.IsNullOrEmpty(txtNameDish.Text))
             {
-                MessageBox.Show("Въведете име на ястието!");
+                MessageBox.Show("Въведете име на ястието!!!");
                 txtNameDish.Focus();
+                return;
+            }
+            if (!decimal.TryParse(txtPrice.Text, out decimal price) || price < 0)
+            {
+                MessageBox.Show("Въведете валидна цена!!!"); 
+                txtPrice.Focus();
+                return;
+            }
+            if (!int.TryParse(txtWeight.Text, out int weight) || weight < 0)
+            {
+                MessageBox.Show("Въведете валидно тегло!!!");
+                txtWeight.Focus();
                 return;
             }
 
@@ -65,8 +77,8 @@ namespace DeliveryZadacha
             {
                 Name = txtNameDish.Text,
                 Description = rtxDescription.Text,
-                Price = numericUpDownPrice.Value,
-                Weight = (int)numericUpDownWeight.Value,
+                Price = price,
+                Weight = weight,
                 DishTypeId = (int)cmbKindDish.SelectedValue
             };
 
@@ -82,7 +94,7 @@ namespace DeliveryZadacha
             listBox1.Items.Clear();
             foreach (var item in allDishes)
             {
-                listBox1.Items.Add($"{item.Id}. {item.Name} - {item.DishType.TypeName} - {item.Price} лв.");
+                listBox1.Items.Add($"{item.Id}. {item.Name} - {item.DishType.TypeName} - {item.Price} лв. - {item.Weight} г");
             }
         }
 
@@ -90,7 +102,7 @@ namespace DeliveryZadacha
         {
             if (string.IsNullOrEmpty(txtId.Text) || !txtId.Text.All(char.IsDigit))
             {
-                MessageBox.Show("Въведете валиден Id за търсене!");
+                MessageBox.Show("Въведете валидно Id за търсене!!!");
                 txtId.BackColor = Color.Red;
                 txtId.Focus();
                 return;
@@ -100,20 +112,19 @@ namespace DeliveryZadacha
             Dish foundDish = dishController.Get(findId);
             if (foundDish == null)
             {
-                MessageBox.Show("Няма такъв запис в базата!");
+                MessageBox.Show("Няма такъв запис в базата!!!");
                 txtId.BackColor = Color.Red;
                 txtId.Focus();
                 return;
             }
             LoadRecord(foundDish);
-            ClearScreen();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (!int.TryParse(txtId.Text, out int findId))
             {
-                MessageBox.Show("Въведете валидно ID за изтриване!");
+                MessageBox.Show("Въведете валидно ID за изтриване!!!");
                 txtId.BackColor = Color.Red;
                 txtId.Focus();
                 return;
@@ -122,13 +133,13 @@ namespace DeliveryZadacha
             Dish foundDish = dishController.Get(findId);
             if (foundDish == null)
             {
-                MessageBox.Show("Няма такъв запис в базата!");
+                MessageBox.Show("Няма такъв запис в базата!!!");
                 txtId.BackColor = Color.Red;
                 txtId.Focus();
                 return;
             }
 
-            DialogResult answer = MessageBox.Show($"Наистина ли искате да изтриете запис No {findId}?",
+            DialogResult answer = MessageBox.Show($"Наистина ли искате да изтриете запис номер {findId}?",
                 "Потвърждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (answer == DialogResult.Yes)
@@ -164,17 +175,18 @@ namespace DeliveryZadacha
                 return;
             }
 
-            if (numericUpDownPrice.Value < 0)
+            if (!decimal.TryParse(txtPrice.Text, out decimal price) || price < 0)
             {
-                MessageBox.Show("Въведете валидна цена (по-голяма от 0)!");
-                numericUpDownPrice.Focus();
+                MessageBox.Show("Въведете валидна цена!!!"); 
+                txtPrice.Focus();
                 return;
             }
 
-            if (numericUpDownWeight.Value < 0)
+
+            if (!int.TryParse(txtWeight.Text, out int weight) || weight < 0)
             {
-                MessageBox.Show("Въведете валидно тегло (по-голямо от 0)!");
-                numericUpDownWeight.Focus();
+                MessageBox.Show("Въведете валидно тегло!!!");
+                txtWeight.Focus();
                 return;
             }
 
@@ -183,8 +195,8 @@ namespace DeliveryZadacha
                 Name = txtNameDish.Text,
                 Description = rtxDescription.Text,
                 DishTypeId = (int)cmbKindDish.SelectedValue,
-                Price = numericUpDownPrice.Value,
-                Weight = (int)numericUpDownWeight.Value
+                Price = price, 
+                Weight = weight
             };
 
             dishController.Update(findId, updatedDish);
@@ -194,7 +206,9 @@ namespace DeliveryZadacha
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            //
+            DishTypes dishTypesForm = new DishTypes();
+
+            dishTypesForm.ShowDialog();
         }
     }
 }

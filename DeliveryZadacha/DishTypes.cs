@@ -23,7 +23,31 @@ namespace DeliveryZadacha
 
         private void btnDelete2_Click(object sender, EventArgs e)
         {
+            if (!int.TryParse(txtId2.Text, out int id))
+            {
+                MessageBox.Show("Въведете валидно ID за изтриване!!!");
+                txtId2.BackColor = Color.Red;
+                txtId2.Focus();
+                return;
+            }
 
+            var typeName = controller.GetDishTypeNameById(id);
+            if (typeName == null)
+            {
+                MessageBox.Show("Типът ястие не съществува!!!");
+                txtId2.BackColor = Color.Red;
+                txtId2.Focus();
+                return;
+            }
+
+            DialogResult confirm = MessageBox.Show($"Сигурни ли сте, че искате да изтриете {typeName}?", "Потвърждение", MessageBoxButtons.YesNo);
+            if (confirm == DialogResult.Yes)
+            {
+                controller.Delete(id);
+                MessageBox.Show("Успешно изтрито!");
+                ClearScreen();
+                btnSelectAll_Click(sender, e);
+            }
         }
 
         private void DishTypes_Load(object sender, EventArgs e)
@@ -47,7 +71,7 @@ namespace DeliveryZadacha
         {
             if (string.IsNullOrEmpty(txtNameDish2.Text))
             {
-                MessageBox.Show("Въведете име на типа ястие!");
+                MessageBox.Show("Въведете име на типа ястие!!!");
                 txtNameDish2.Focus();
                 return;
             }
@@ -74,30 +98,52 @@ namespace DeliveryZadacha
 
         private void btnSearch2_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtId2.Text) || !txtId2.Text.All(char.IsDigit))
+            if (!int.TryParse(txtId2.Text, out int id))
             {
-                MessageBox.Show("Въведете Id за търсене!");
+                MessageBox.Show("Въведете валидно ID за търсене!!!");
                 txtId2.BackColor = Color.Red;
                 txtId2.Focus();
                 return;
             }
 
-            int id = int.Parse(txtId2.Text);
-            var found = controller.GetDishTypeNameById(id);
+            var found = controller.GetDishTypeById(id);
             if (found == null)
             {
-                MessageBox.Show("Няма такъв тип ястие!");
+                MessageBox.Show("Няма такъв тип ястие!!!");
                 txtId2.BackColor = Color.Red;
                 txtId2.Focus();
                 return;
             }
 
-            //LoadRecord(found);
+            LoadRecord(found);
         }
 
         private void btnUpdate2_Click(object sender, EventArgs e)
         {
-           
+            if (!int.TryParse(txtId2.Text, out int id))
+            {
+                MessageBox.Show("Въведете валидно ID за актуализация!!!");
+                txtId2.BackColor = Color.Red;
+                txtId2.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtNameDish2.Text))
+            {
+                MessageBox.Show("Въведете име на типа ястие!!!");
+                txtNameDish2.Focus();
+                return;
+            }
+
+            DishType updated = new DishType
+            {
+                TypeName = txtNameDish2.Text
+            };
+
+            controller.Update(id, updated);
+            MessageBox.Show("Типът ястие е актуализиран!");
+            ClearScreen();
+            btnSelectAll_Click(sender, e);
         }
     }
 }

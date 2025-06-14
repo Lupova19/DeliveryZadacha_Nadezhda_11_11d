@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DishTypes));
             this.lblId2 = new System.Windows.Forms.Label();
             this.lblNameDish2 = new System.Windows.Forms.Label();
             this.txtId2 = new System.Windows.Forms.TextBox();
@@ -35,40 +36,43 @@
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.btnUpdate2 = new System.Windows.Forms.Button();
             this.btnDelete2 = new System.Windows.Forms.Button();
-            this.btnEdit2 = new System.Windows.Forms.Button();
             this.btnAdd2 = new System.Windows.Forms.Button();
             this.btnSearch2 = new System.Windows.Forms.Button();
             this.btnSelectAll2 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // lblId2
             // 
             this.lblId2.AutoSize = true;
+            this.lblId2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblId2.Location = new System.Drawing.Point(52, 38);
             this.lblId2.Name = "lblId2";
-            this.lblId2.Size = new System.Drawing.Size(21, 16);
+            this.lblId2.Size = new System.Drawing.Size(32, 22);
             this.lblId2.TabIndex = 0;
             this.lblId2.Text = "Id:";
             // 
             // lblNameDish2
             // 
             this.lblNameDish2.AutoSize = true;
-            this.lblNameDish2.Location = new System.Drawing.Point(55, 90);
+            this.lblNameDish2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblNameDish2.Location = new System.Drawing.Point(71, 76);
             this.lblNameDish2.Name = "lblNameDish2";
-            this.lblNameDish2.Size = new System.Drawing.Size(37, 16);
+            this.lblNameDish2.Size = new System.Drawing.Size(178, 22);
             this.lblNameDish2.TabIndex = 1;
-            this.lblNameDish2.Text = "Име:";
+            this.lblNameDish2.Text = "Име на тип ястие:";
             // 
             // txtId2
             // 
-            this.txtId2.Location = new System.Drawing.Point(132, 35);
+            this.txtId2.Location = new System.Drawing.Point(99, 40);
             this.txtId2.Name = "txtId2";
             this.txtId2.Size = new System.Drawing.Size(100, 22);
             this.txtId2.TabIndex = 2;
             // 
             // txtNameDish2
             // 
-            this.txtNameDish2.Location = new System.Drawing.Point(132, 90);
+            this.txtNameDish2.Location = new System.Drawing.Point(38, 113);
             this.txtNameDish2.Name = "txtNameDish2";
             this.txtNameDish2.Size = new System.Drawing.Size(267, 22);
             this.txtNameDish2.TabIndex = 3;
@@ -77,9 +81,9 @@
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(12, 194);
+            this.listBox2.Location = new System.Drawing.Point(12, 209);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(320, 244);
+            this.listBox2.Size = new System.Drawing.Size(369, 276);
             this.listBox2.TabIndex = 4;
             // 
             // btnUpdate2
@@ -106,24 +110,13 @@
             this.btnDelete2.UseVisualStyleBackColor = false;
             this.btnDelete2.Click += new System.EventHandler(this.btnDelete2_Click);
             // 
-            // btnEdit2
-            // 
-            this.btnEdit2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.btnEdit2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnEdit2.Location = new System.Drawing.Point(597, 288);
-            this.btnEdit2.Name = "btnEdit2";
-            this.btnEdit2.Size = new System.Drawing.Size(152, 63);
-            this.btnEdit2.TabIndex = 38;
-            this.btnEdit2.Text = "Редактирай";
-            this.btnEdit2.UseVisualStyleBackColor = false;
-            // 
             // btnAdd2
             // 
             this.btnAdd2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.btnAdd2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAdd2.Location = new System.Drawing.Point(429, 288);
             this.btnAdd2.Name = "btnAdd2";
-            this.btnAdd2.Size = new System.Drawing.Size(147, 63);
+            this.btnAdd2.Size = new System.Drawing.Size(320, 63);
             this.btnAdd2.TabIndex = 37;
             this.btnAdd2.Text = "Добави";
             this.btnAdd2.UseVisualStyleBackColor = false;
@@ -133,7 +126,7 @@
             // 
             this.btnSearch2.BackColor = System.Drawing.Color.LightGreen;
             this.btnSearch2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSearch2.Location = new System.Drawing.Point(39, 139);
+            this.btnSearch2.Location = new System.Drawing.Point(38, 154);
             this.btnSearch2.Name = "btnSearch2";
             this.btnSearch2.Size = new System.Drawing.Size(270, 49);
             this.btnSearch2.TabIndex = 41;
@@ -152,17 +145,27 @@
             this.btnSelectAll2.Text = "Избери всички";
             this.btnSelectAll2.UseVisualStyleBackColor = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(429, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(338, 256);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 43;
+            this.pictureBox1.TabStop = false;
+            // 
             // DishTypes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MistyRose;
             this.ClientSize = new System.Drawing.Size(800, 497);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnSelectAll2);
             this.Controls.Add(this.btnSearch2);
             this.Controls.Add(this.btnUpdate2);
             this.Controls.Add(this.btnDelete2);
-            this.Controls.Add(this.btnEdit2);
             this.Controls.Add(this.btnAdd2);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.txtNameDish2);
@@ -172,6 +175,7 @@
             this.Name = "DishTypes";
             this.Text = "DishTypes";
             this.Load += new System.EventHandler(this.DishTypes_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,9 +190,9 @@
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.Button btnUpdate2;
         private System.Windows.Forms.Button btnDelete2;
-        private System.Windows.Forms.Button btnEdit2;
         private System.Windows.Forms.Button btnAdd2;
         private System.Windows.Forms.Button btnSearch2;
         private System.Windows.Forms.Button btnSelectAll2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
